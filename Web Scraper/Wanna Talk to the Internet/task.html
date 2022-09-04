@@ -1,0 +1,28 @@
+<html><body><h5 id="theory">Theory</h5>
+<p>In the first stage of this project, you need to work with the data extracted from the JSON body response. The <code class="language-python">requests</code> library has a built-in <code class="language-python">json()</code> decoder. You can use it as follows:</p>
+<pre><code class="language-python">response = requests.get(url)
+response.json()</code></pre>
+<p>Alternatively, you can utilize the <code class="language-python">loads()</code> function from the <code class="language-python">json</code> library. Check out the <a href="https://docs.python.org/3/library/json.html#module-json" rel="noopener noreferrer nofollow" target="_blank">json documentation</a> to learn more about it.</p>
+<h5 id="description">Description</h5>
+<p>We use the Internet everyday. Have you ever wondered how your computer communicates with the Global Web? In this stage, we'll learn how to talk to the Internet from your Python script — and interpret the replies! Your program should send an HTTP request to a URL received from the user input. The user input can be a Quotable resource <code class="language-python">http://api.quotable.io/quotes/-CzNrWMGIg8V</code>. In this case, the program should print out the Quote extracted from the <code class="language-python">json</code> body response.</p>
+<p>The user may also input an invalid URL or a non-existing quote resource, for example, <code class="language-python">http://api.quotable.io/quotes/1</code>, or a different Quotable page (<code class="language-python">http://api.quotable.io/authors</code>). Use <code class="language-python">if-else</code> statements to check the <code class="language-python">status_code</code> or the <code class="language-python">json</code> body response. Print out the <code class="language-python">Invalid quote resource!</code> error message when the response code is different from 200 or when there is no quote in the <code class="language-python">json</code> body response.</p>
+<h5 id="objectives">Objectives</h5>
+<p>In this stage, your program should: </p>
+<ol>
+<li>Send an HTTP request to a URL received from the user input.</li>
+<li>Print out the Quote content extracted from the <code class="language-python">json</code> body response.</li>
+<li>Print out the <code class="language-python">Invalid quote resource!</code> error message if there's no quote or something goes wrong.</li>
+</ol>
+<h5 id="examples">Examples</h5>
+<p>The greater-than symbol followed by space (<code class="language-python">&gt; </code>) represents the user input. Note that it's not part of the input.</p>
+<p><strong>Example 1</strong></p>
+<pre><code class="language-no-highlight">Input the URL:
+&gt; http://api.quotable.io/quotes/-4WQ_JwFWI
+
+The three great essentials to achieve anything worth while are: Hard work, Stick-to-itiveness, and Common sense.
+</code></pre>
+<p><strong>Example 2</strong> </p>
+<pre><code class="language-no-highlight">Input the URL:
+&gt; http://api.quotable.io/quotes/asdfgh
+
+Invalid quote resource!</code></pre></body></html>

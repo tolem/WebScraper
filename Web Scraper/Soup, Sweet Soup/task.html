@@ -1,0 +1,18 @@
+<html><body><h5 id="description">Description</h5>
+<p>You've done an amazing job in the previous stage! Remember we mentioned retrieving large data? Let's improve your program by making it parse multiple<em> </em>website<em> </em>pages. To make it even more useful, let's also implement the opportunity to parse several kinds of articles at once. </p>
+<h5 id="objectives">Objectives</h5>
+<ol>
+<li>Improve your code so that the function can take two parameters from the user input: the number of pages (an integer) and the type of articles (a string). The integer with the number of pages specifies the number of pages on which the program should look for the articles. </li>
+<li>Go back to the <code class="java">https://www.nature.com/nature/articles?sort=PubDate&amp;year=2020</code> website and find out how to navigate between the pages with the <code class="java">requests</code> module changing the URL.</li>
+<li>Create a directory named <code class="java">Page_N</code> (where <strong>N</strong> is the page number corresponding to the number input by the user) for each page. Search and collect all articles page by page; filter all the articles by the article type and put all the articles that are found on the page with the matched type to the directory <code class="java">Page_N</code>. Mind that when the user enters some number, for example, 4, the program should search all pages up to that number and the respective folders (Folder 1, Folder 2, Folder 3, Folder 4) should be created.</li>
+<li>Save the articles to separate <code class="java">*.txt</code> files. Keep the same processing of the titles for the filenames as in the previous stage. You can give users some feedback on completion, but it is not required.</li>
+</ol>
+<p>If there's no articles on the page, your program should still create a folder, but in this case the folder would be empty.</p>
+<h5 id="example">Example</h5>
+<p>The program takes two input values from the user and then continues to process the Nature website data.</p>
+<p>The greater-than symbol followed by a space (<code class="java">&gt; </code>) represents the user input. Note that it's not part of the input.</p>
+<pre><code class="language-no-highlight">&gt; 4
+&gt; Nature Briefing
+Saved all articles.
+</code></pre>
+<p>The main goal is to save the articles with the correct article bodies once the program has been executed.</p></body></html>

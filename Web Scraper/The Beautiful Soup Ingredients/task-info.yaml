@@ -1,0 +1,61 @@
+type: edu
+files:
+- name: scraper.py
+  visible: true
+  learner_created: false
+- name: tests.py
+  visible: false
+  text: "import ast\nimport re\n\nfrom hstest.check_result import CheckResult\nfrom\
+    \ hstest.stage_test import StageTest\nfrom hstest.test_case import TestCase\n\n\
+    import requests\nfrom bs4 import BeautifulSoup\n\n\nurl_1 = \"https://web.archive.org/web/20220313182641/https://www.imdb.com/title/tt10048342/?ref_=nv_sr_srsg_0\"\
+    \nurl_2 = \"https://web.archive.org/web/20220312014418/https://www.imdb.com/title/tt0068646/?ref_=nv_sr_srsg_0\"\
+    \n\n\nclass WebScraperTest(StageTest):\n    def generate(self):\n        return\
+    \ [TestCase(stdin=url_1, check_function=self.check_answer,\n                 \
+    \        attach=url_1, time_limit=50000),\n                TestCase(stdin=url_2,\
+    \ check_function=self.check_answer,\n                         attach=url_2, time_limit=50000),\n\
+    \                TestCase(stdin=\"https://www.imdb.com/name/nm0001191/\", check_function=self.check_incorrect_url,\n\
+    \                         time_limit=50000),\n                TestCase(stdin=\"\
+    https://www.google.com/\", check_function=self.check_incorrect_url, time_limit=50000)]\n\
+    \n    def check_url(self, url):\n        try:\n            response = requests.get(url,\
+    \ headers={'Accept-Language': 'en-US,en;q=0.5'}).content\n        except Exception:\n\
+    \            CheckResult.wrong(\"An error occurred when tests tried to connect\
+    \ to the Internet page.\\n\"\n                              \"Please, try again.\"\
+    )\n        else:\n            soup = BeautifulSoup(response, 'html.parser')\n\
+    \            h_link = soup.find('h1')\n            title = h_link.text\n     \
+    \       span_link = soup.find('span', {'data-testid': 'plot-l'})\n           \
+    \ description = span_link.text\n            return title, description\n\n    def\
+    \ check_incorrect_url(self, reply, attach=None):\n        if \"Invalid movie page!\"\
+    \ in reply:\n            return CheckResult.correct()\n        else:\n       \
+    \     return CheckResult.wrong(\"\"\"If the link does not contain movie info or\
+    \ not an IMDB resource, \n            please respond with 'Invalid movie page!'\
+    \ message!\"\"\")\n\n    def check_answer(self, reply, attach=None):\n\n     \
+    \   output = re.search('({.+})', reply)\n        if output is None:\n        \
+    \    return CheckResult.wrong(\"Output dictionary was expected.\\n\"\n       \
+    \                              \"However, it was not found.\")\n        try:\n\
+    \            reply_dict = ast.literal_eval(output.group(0))\n        except (AttributeError,\
+    \ ValueError, SyntaxError):\n            return CheckResult.wrong(\"An error occurred\
+    \ while your output was being parsed.\\n\"\n                                 \
+    \    \"Make sure you output a dictionary and its keys and values contain no HTML\
+    \ tags.\")\n\n        if 'title' not in reply_dict:\n            return CheckResult.wrong(\"\
+    There's no \\'title\\' field in your output.\")\n        if 'description' not\
+    \ in reply_dict:\n            return CheckResult.wrong(\"There's no \\'description\\\
+    ' field in your output.\")\n\n        user_description = reply_dict[\"description\"\
+    ]\n        user_title = reply_dict[\"title\"]\n\n        if not user_title or\
+    \ not user_description:\n            return CheckResult.wrong(\"Seems like there\
+    \ is a title or a description missing in the output dictionary.\")\n\n       \
+    \ if type(user_description) != str or type(user_title) != str:\n            return\
+    \ CheckResult.wrong(\"The values of keys 'title' and 'description' should be strings.\\\
+    n\"\n                                     \"However, it seems that in your output\
+    \ the type of one or both of these values \"\n                               \
+    \      \"isn't string.\")\n\n        title, description = self.check_url(attach)\n\
+    \        if user_title == title and user_description == description:\n       \
+    \     return CheckResult.correct()\n        else:\n            return CheckResult.wrong(\"\
+    Title or description in returned dict do not seem to be correct.\")\n\n\nif __name__\
+    \ == '__main__':\n    WebScraperTest().run_tests()\n"
+  learner_created: false
+feedback_link: https://hyperskill.org/projects/145/stages/782/implement#comment
+status: Solved
+feedback:
+  message: Congratulations!
+  time: Fri, 02 Sep 2022 06:22:03 UTC
+record: 2
